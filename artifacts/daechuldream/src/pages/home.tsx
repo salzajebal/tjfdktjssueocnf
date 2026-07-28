@@ -267,55 +267,75 @@ export function Home() {
 
       {/* Warning notice */}
       <div className="w-full py-2.5 px-4" style={{ background: "#fff8e1", borderBottom: "1px solid #ffe082" }}>
-        <div className="max-w-5xl mx-auto flex items-start gap-2">
-          <span className="text-base flex-shrink-0 mt-0.5">⚠️</span>
-          <p className="text-xs text-amber-800 leading-relaxed" style={{ fontWeight: 600 }}>
-            선입금, 수수료 선납, 작업비 등을 요구하는 업체는 이용하지 마세요.
-            <span className="font-normal text-amber-700">
-              {" "}프라임브릿지는 상담 전 어떠한 명목의 선입금도 요구하지 않습니다.
-            </span>
-          </p>
-        </div>
+        <p className="text-xs text-amber-800 text-center leading-relaxed" style={{ fontWeight: 600 }}>
+          선입금, 수수료 선납, 작업비 등을 요구하는 업체는 이용하지 마세요.<br />
+          <span className="font-normal text-amber-700">프라임브릿지는 상담 전 어떠한 명목의 선입금도 요구하지 않습니다.</span>
+        </p>
       </div>
 
       <main className="flex-1">
         {/* ── Hero ── */}
-        <section className="py-12 md:py-20" style={{ background: "#f3f3fb" }}>
-          <div className="max-w-5xl mx-auto px-4 md:px-6 text-center">
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border mb-5"
-              style={{ borderColor: PURPLE, color: PURPLE, background: "#eeebff" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: PURPLE }} />
-              사업자 금융 컨설팅 서비스
-            </div>
-            <h1
-              className="text-[28px] md:text-[42px] font-bold leading-snug text-gray-900 mb-4"
-              style={{ fontWeight: 800 }}
-            >
-              사업자 대출, 어디서부터<br className="hidden md:block" /> 시작해야 할지 고민되시나요?
-            </h1>
-            <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-8" style={{ fontWeight: 500 }}>
-              프라임브릿지는 고객님의 사업 현황을 분석하여<br />
-              적합한 금융 상담을 연결해드리는 사업자 금융 컨설팅 서비스입니다.
-            </p>
-            <button
-              onClick={() => { scrollToForm(); }}
-              className="inline-flex items-center gap-2 rounded-lg px-8 py-3.5 text-white text-sm font-bold hover:opacity-90 transition-opacity shadow-md"
-              style={{ background: PURPLE }}
-            >
-              무료 상담 신청서 작성하기 <span className="text-lg">›</span>
-            </button>
-            <div className="flex items-center justify-center gap-10 mt-10">
-              <div>
-                <p className="text-2xl font-bold" style={{ color: PURPLE, fontWeight: 800 }}>100%</p>
-                <p className="text-xs text-gray-500 mt-0.5" style={{ fontWeight: 600 }}>비대면 진행</p>
+        <section className="overflow-hidden" style={{ background: "#f3f3fb" }}>
+          <div className="max-w-5xl mx-auto px-4 md:px-6">
+            <div className="flex flex-col md:flex-row items-center gap-0 md:gap-10">
+
+              {/* Left: text */}
+              <div className="flex-1 py-12 md:py-20 text-left">
+                <div
+                  className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border mb-5"
+                  style={{ borderColor: PURPLE, color: PURPLE, background: "#eeebff" }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: PURPLE }} />
+                  사업자 금융 컨설팅 서비스
+                </div>
+                <h1
+                  className="text-[26px] md:text-[38px] font-bold leading-snug text-gray-900 mb-4"
+                  style={{ fontWeight: 800 }}
+                >
+                  사업자 자금,<br />어디서부터 시작해야<br />할지 고민되시나요?
+                </h1>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-8" style={{ fontWeight: 500 }}>
+                  사업 현황을 검토해 상담 가능한 금융 방향을 안내해드립니다.
+                </p>
+                <button
+                  onClick={() => { scrollToForm(); }}
+                  className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-white text-sm font-bold hover:opacity-90 transition-opacity shadow-md mb-8"
+                  style={{ background: PURPLE }}
+                >
+                  무료 상담 신청하기 <span className="text-lg">›</span>
+                </button>
+                <div className="flex items-center gap-8">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
+                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5 6.5-7" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
+                    <span className="text-xs text-gray-600 font-semibold">100% 비대면 상담</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
+                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none"><path d="M8 2a4 4 0 100 8A4 4 0 008 2zM2 14c0-2.21 2.686-4 6-4s6 1.79 6 4" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round"/></svg>
+                    </div>
+                    <span className="text-xs text-gray-600 font-semibold">사업자 맞춤 검토</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
+                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none"><path d="M8 1v7l4 2" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </div>
+                    <span className="text-xs text-gray-600 font-semibold">1:1 맞춤 상담</span>
+                  </div>
+                </div>
               </div>
-              <div className="w-px h-8 bg-gray-200" />
-              <div>
-                <p className="text-2xl font-bold" style={{ color: PURPLE, fontWeight: 800 }}>90%+</p>
-                <p className="text-xs text-gray-500 mt-0.5" style={{ fontWeight: 600 }}>성공률</p>
+
+              {/* Right: image */}
+              <div className="w-full md:w-[420px] flex-shrink-0 self-end hidden md:block">
+                <img
+                  src="/hero-business.jpg"
+                  alt="사업자 금융 컨설팅"
+                  className="w-full h-[420px] object-cover object-top rounded-t-2xl"
+                  style={{ display: "block" }}
+                />
               </div>
+
             </div>
           </div>
         </section>
