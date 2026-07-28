@@ -14,13 +14,15 @@ export function Header() {
                   <stop offset="100%" stopColor="#4534E0" />
                 </linearGradient>
               </defs>
-              {/* Rounded square background */}
               <rect width="32" height="32" rx="9" fill="url(#logoGrad)" />
-              {/* Diamond / gem shape */}
-              <polygon points="16,6 24,13 16,27 8,13" fill="none" stroke="white" strokeWidth="1.6" strokeLinejoin="round" />
-              <line x1="8" y1="13" x2="24" y2="13" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
-              <line x1="16" y1="6" x2="8" y2="13" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
-              <line x1="16" y1="6" x2="24" y2="13" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+              {/* Arch */}
+              <path d="M5 23 Q16 7 27 23" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+              {/* Deck */}
+              <line x1="4" y1="23" x2="28" y2="23" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+              {/* Hangers */}
+              <line x1="11" y1="23" x2="11" y2="17" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+              <line x1="16" y1="23" x2="16" y2="11.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+              <line x1="21" y1="23" x2="21" y2="17" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
             </svg>
             <span className="text-lg text-gray-900" style={{ fontWeight: 700 }}>프라임브릿지</span>
           </span>
