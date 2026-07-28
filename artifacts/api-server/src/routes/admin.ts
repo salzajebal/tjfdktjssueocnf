@@ -12,8 +12,8 @@ import { discoverChats, sendTelegramNotification, getTelegramConfig } from "../l
 
 const router = Router();
 
-const ADMIN_PASSWORD = "355jako00!";
-const ADMIN_TOKEN = "daechuldream-admin-token-2024";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "355jako00!";
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN ?? "daechuldream-admin-token-2024";
 
 function requireAdmin(req: import("express").Request, res: import("express").Response): boolean {
   const token = req.headers["x-admin-token"];
