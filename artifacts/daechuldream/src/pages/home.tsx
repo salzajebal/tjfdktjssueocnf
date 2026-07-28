@@ -277,23 +277,31 @@ export function Home() {
         {/* ── Hero ── */}
         <section className="relative overflow-hidden" style={{ background: "#f3f3fb", minHeight: 480 }}>
 
-          {/* Right: full-height image (desktop) */}
-          <div className="absolute inset-y-0 right-0 hidden md:block" style={{ width: "45%" }}>
+          {/* Right: full-height image */}
+          <div className="absolute inset-y-0 right-0" style={{ width: "50%" }}>
             <img
               src="/hero-business.jpg"
               alt="사업자 금융 컨설팅"
               className="w-full h-full object-cover object-center"
             />
-            {/* Left-edge gradient fade into section bg */}
+            {/* Left-edge gradient — stronger on mobile */}
             <div
-              className="absolute inset-y-0 left-0 w-40 pointer-events-none"
-              style={{ background: "linear-gradient(to right, #f3f3fb, transparent)" }}
+              className="absolute inset-y-0 left-0 pointer-events-none"
+              style={{
+                width: "70%",
+                background: "linear-gradient(to right, #f3f3fb 40%, transparent)",
+              }}
+            />
+            {/* Extra mobile overlay so text stays readable */}
+            <div
+              className="absolute inset-0 pointer-events-none md:hidden"
+              style={{ background: "rgba(243,243,251,0.35)" }}
             />
           </div>
 
           {/* Left: text content */}
-          <div className="relative max-w-5xl mx-auto px-4 md:px-6 pt-10 pb-0 md:py-20">
-            <div className="md:w-[52%] text-left">
+          <div className="relative max-w-5xl mx-auto px-4 md:px-6 pt-10 pb-10 md:py-20">
+            <div className="w-[55%] md:w-[52%] text-left">
               <div
                 className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border mb-5"
                 style={{ borderColor: PURPLE, color: PURPLE, background: "#eeebff" }}
@@ -302,12 +310,12 @@ export function Home() {
                 사업자 금융 컨설팅 서비스
               </div>
               <h1
-                className="text-[28px] md:text-[40px] font-bold leading-snug text-gray-900 mb-4"
+                className="text-[22px] md:text-[40px] font-bold leading-snug text-gray-900 mb-4"
                 style={{ fontWeight: 800 }}
               >
-                사업자 자금,<br />어디서부터 시작해야<br />할지 고민되시나요?
+                사업자 자금,<br />어디서부터<br />시작해야 할지<br className="md:hidden" /> 고민되시나요?
               </h1>
-              <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-8" style={{ fontWeight: 500 }}>
+              <p className="text-xs md:text-base text-gray-600 leading-relaxed mb-6 md:mb-8" style={{ fontWeight: 500 }}>
                 사업 현황을 검토해 상담 가능한 금융 방향을 안내해드립니다.
               </p>
               <button
@@ -332,26 +340,6 @@ export function Home() {
                 ))}
               </div>
 
-              {/* Mobile image — portrait card */}
-              <div className="flex justify-center mt-6 block md:hidden">
-                <div
-                  className="relative overflow-hidden"
-                  style={{
-                    width: 160,
-                    height: 190,
-                    borderRadius: "50% 50% 48% 48% / 40% 40% 60% 60%",
-                    boxShadow: "0 8px 32px rgba(99,82,255,0.18)",
-                    border: "3px solid #eeebff",
-                  }}
-                >
-                  <img
-                    src="/hero-business.jpg"
-                    alt="사업자 금융 컨설팅"
-                    className="w-full h-full object-cover"
-                    style={{ objectPosition: "40% 8%" }}
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </section>
