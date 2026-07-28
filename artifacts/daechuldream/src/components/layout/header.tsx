@@ -22,12 +22,12 @@ export function Header() {
               <line x1="16" y1="6" x2="8" y2="13" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
               <line x1="16" y1="6" x2="24" y2="13" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
-            <span className="text-lg text-gray-900" style={{ fontWeight: 700 }}>대출드림</span>
+            <span className="text-lg text-gray-900" style={{ fontWeight: 700 }}>프라임브릿지</span>
           </span>
         </Link>
         <a href="#apply">
           <button className="bg-[#5B4BFF] text-white text-sm font-semibold px-5 py-2 rounded-md hover:bg-[#4a3aee] transition-colors">
-            한도조회
+            상담 신청
           </button>
         </a>
       </div>
