@@ -332,18 +332,25 @@ export function Home() {
                 ))}
               </div>
 
-              {/* Mobile image — below text */}
-              <div className="relative mt-8 -mx-4 block md:hidden" style={{ height: 220 }}>
-                <img
-                  src="/hero-business.jpg"
-                  alt="사업자 금융 컨설팅"
-                  className="w-full h-full object-cover object-top"
-                />
-                {/* top gradient fade */}
+              {/* Mobile image — portrait card */}
+              <div className="flex justify-center mt-6 block md:hidden">
                 <div
-                  className="absolute inset-x-0 top-0 h-12 pointer-events-none"
-                  style={{ background: "linear-gradient(to bottom, #f3f3fb, transparent)" }}
-                />
+                  className="relative overflow-hidden"
+                  style={{
+                    width: 160,
+                    height: 190,
+                    borderRadius: "50% 50% 48% 48% / 40% 40% 60% 60%",
+                    boxShadow: "0 8px 32px rgba(99,82,255,0.18)",
+                    border: "3px solid #eeebff",
+                  }}
+                >
+                  <img
+                    src="/hero-business.jpg"
+                    alt="사업자 금융 컨설팅"
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: "40% 8%" }}
+                  />
+                </div>
               </div>
             </div>
           </div>
