@@ -87,7 +87,7 @@ export function Home() {
                 금융감독원 정식 등록
               </div>
               <h1 className="text-[28px] md:text-4xl font-bold leading-snug text-gray-900" style={{ fontWeight: 800 }}>
-                파워풀론<br />누구나 가능한 맞춤 대출
+                대출드림<br />누구나 가능한 맞춤 대출
               </h1>
               <p className="text-sm text-gray-600 leading-relaxed" style={{ fontWeight: 500 }}>
                 직장인·사업자·주부·무직자 누구나<br />
@@ -322,10 +322,10 @@ export function Home() {
             <h2 className="text-2xl font-bold text-gray-900 mb-8" style={{ fontWeight: 800 }}>맞춤 대출 상품</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { badge: "연체자", title: "파워풀론 연체자", sub: "1개월 이상 연체 지속 중인 분", limit: "최대 2,000만", rate: "연 9.9%~", term: "12~60개월" },
-                { badge: "저신용자", title: "파워풀론 저신용자", sub: "신용등급 7등급 이하", limit: "최대 1,500만", rate: "연 12.9%~", term: "12~48개월" },
-                { badge: "주부", title: "파워풀론 주부", sub: "만 19세 이상 주부", limit: "최대 1,000만", rate: "연 14.9%~", term: "12~36개월" },
-                { badge: "무직자", title: "파워풀론 무직자", sub: "만 19세 이상 누구나", limit: "최대 500만", rate: "연 17.9%~", term: "12~24개월" },
+                { badge: "연체자", title: "대출드림 연체자", sub: "1개월 이상 연체 지속 중인 분", limit: "최대 2,000만", rate: "연 9.9%~", term: "12~60개월" },
+                { badge: "저신용자", title: "대출드림 저신용자", sub: "신용등급 7등급 이하", limit: "최대 1,500만", rate: "연 12.9%~", term: "12~48개월" },
+                { badge: "주부", title: "대출드림 주부", sub: "만 19세 이상 주부", limit: "최대 1,000만", rate: "연 14.9%~", term: "12~36개월" },
+                { badge: "무직자", title: "대출드림 무직자", sub: "만 19세 이상 누구나", limit: "최대 500만", rate: "연 17.9%~", term: "12~24개월" },
               ].map((prod) => (
                 <div key={prod.badge} className="border border-gray-200 rounded-lg p-5 bg-white hover:shadow-sm transition-shadow">
                   <p className="text-xs font-semibold mb-1.5" style={{ color: PURPLE }}>{prod.badge}</p>
@@ -361,7 +361,7 @@ export function Home() {
           <div className="max-w-5xl mx-auto px-4 md:px-6 flex flex-col lg:flex-row gap-8 md:gap-12">
             <div className="flex-shrink-0">
               <h2 className="text-2xl font-bold text-white leading-snug" style={{ fontWeight: 800 }}>
-                이런 고민,<br />파워풀론이<br />해결합니다
+                이런 고민,<br />대출드림이<br />해결합니다
               </h2>
             </div>
             <div className="flex-[2] space-y-4">

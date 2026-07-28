@@ -17,7 +17,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   const SidebarContent = () => (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
       <div className="flex h-16 items-center border-b border-sidebar-border px-6">
-        <span className="text-lg font-bold text-sidebar-primary">파워풀론 관리자</span>
+        <span className="text-lg font-bold text-sidebar-primary">대출드림 관리자</span>
       </div>
       <nav className="flex-1 space-y-1 p-4">
         {navItems.map((item) => {
