@@ -35,9 +35,9 @@ function Pill({
 function StepIndicator({ step }: { step: number }) {
   const steps = [
     { n: 1, label: "개인정보" },
-    { n: 2, label: "사업자 정보" },
+    { n: 2, label: "사업자" },
     { n: 3, label: "매출·대출" },
-    { n: 4, label: "희망 조건" },
+    { n: 4, label: "희망조건" },
   ];
   return (
     <div className="flex items-start justify-between px-1">
@@ -277,7 +277,7 @@ export function Home() {
         {/* ── Hero ── */}
         <section className="relative overflow-hidden" style={{ background: "#f3f3fb", minHeight: 480 }}>
 
-          {/* Right: full-height image (desktop only) */}
+          {/* Right: full-height image (desktop) */}
           <div className="absolute inset-y-0 right-0 hidden md:block" style={{ width: "45%" }}>
             <img
               src="/hero-business.jpg"
@@ -292,7 +292,7 @@ export function Home() {
           </div>
 
           {/* Left: text content */}
-          <div className="relative max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
+          <div className="relative max-w-5xl mx-auto px-4 md:px-6 pt-10 pb-0 md:py-20">
             <div className="md:w-[52%] text-left">
               <div
                 className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border mb-5"
@@ -317,19 +317,33 @@ export function Home() {
               >
                 무료 상담 신청하기 <span className="text-lg">›</span>
               </button>
-              <div className="flex flex-wrap items-center gap-5">
+              <div className="grid grid-cols-3 gap-3 w-full max-w-xs">
                 {[
                   { icon: <path d="M3 8.5l3.5 3.5 6.5-7" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>, label: "100% 비대면 상담" },
                   { icon: <path d="M8 2a4 4 0 100 8A4 4 0 008 2zM2 14c0-2.21 2.686-4 6-4s6 1.79 6 4" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round"/>, label: "사업자 맞춤 검토" },
                   { icon: <path d="M8 1v7l4 2" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>, label: "1:1 맞춤 상담" },
                 ].map(({ icon, label }) => (
-                  <div key={label} className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
-                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none">{icon}</svg>
+                  <div key={label} className="flex flex-col items-center gap-1.5 text-center">
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">{icon}</svg>
                     </div>
-                    <span className="text-xs text-gray-600 font-semibold">{label}</span>
+                    <span className="text-[11px] leading-snug text-gray-600 font-semibold">{label}</span>
                   </div>
                 ))}
+              </div>
+
+              {/* Mobile image — below text */}
+              <div className="relative mt-8 -mx-4 block md:hidden" style={{ height: 220 }}>
+                <img
+                  src="/hero-business.jpg"
+                  alt="사업자 금융 컨설팅"
+                  className="w-full h-full object-cover object-top"
+                />
+                {/* top gradient fade */}
+                <div
+                  className="absolute inset-x-0 top-0 h-12 pointer-events-none"
+                  style={{ background: "linear-gradient(to bottom, #f3f3fb, transparent)" }}
+                />
               </div>
             </div>
           </div>
@@ -786,6 +800,7 @@ export function Home() {
                   num: "01",
                   label: "상담 신청",
                   desc: "간단한 정보를\n입력해 주세요.",
+                  accent: "#7B6BFF",
                   icon: (
                     <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
                       <rect x="8" y="6" width="20" height="26" rx="2" stroke="white" strokeWidth="1.8"/>
@@ -798,6 +813,7 @@ export function Home() {
                   num: "02",
                   label: "사업 현황 확인",
                   desc: "입력하신 내용을 바탕으로\n현황을 확인합니다.",
+                  accent: "#3B82F6",
                   icon: (
                     <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
                       <circle cx="20" cy="16" r="7" stroke="white" strokeWidth="1.8"/>
@@ -809,6 +825,7 @@ export function Home() {
                   num: "03",
                   label: "내부 검토",
                   desc: "상담 가능한 금융 방향을\n내부에서 검토합니다.",
+                  accent: "#06B6D4",
                   icon: (
                     <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
                       <circle cx="18" cy="18" r="9" stroke="white" strokeWidth="1.8"/>
@@ -821,6 +838,7 @@ export function Home() {
                   num: "04",
                   label: "상담 방향 안내",
                   desc: "검토된 내용을 바탕으로\n안내 및 상담을 진행합니다.",
+                  accent: "#10B981",
                   icon: (
                     <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
                       <path d="M7 10h26a2 2 0 012 2v14a2 2 0 01-2 2H13l-6 5V12a2 2 0 012-2z" stroke="white" strokeWidth="1.8" strokeLinejoin="round"/>
@@ -829,23 +847,31 @@ export function Home() {
                   ),
                 },
               ].map((item, i) => (
-                <div key={i} className="flex flex-row md:flex-row items-center">
+                <div key={i} className="flex flex-col md:flex-row items-center">
                   {/* Card */}
-                  <div className="flex flex-col items-center text-center w-44">
+                  <div
+                    className="flex flex-col items-center text-center w-44 rounded-2xl py-6 px-3"
+                    style={{ background: "rgba(255,255,255,0.05)", border: `1px solid ${item.accent}40` }}
+                  >
                     <div
                       className="w-16 h-16 rounded-full flex items-center justify-center mb-3 flex-shrink-0"
-                      style={{ background: "#2a3a6e" }}
+                      style={{ background: `${item.accent}30`, boxShadow: `0 0 0 6px ${item.accent}15` }}
                     >
                       {item.icon}
                     </div>
-                    <p className="text-[10px] font-bold tracking-widest mb-1" style={{ color: "#7B8FD4" }}>{item.num}</p>
+                    <p className="text-[10px] font-bold tracking-widest mb-1" style={{ color: item.accent }}>{item.num}</p>
                     <p className="text-sm font-bold text-white mb-1.5">{item.label}</p>
                     <p className="text-xs leading-relaxed whitespace-pre-line" style={{ color: "#8a9cc0" }}>{item.desc}</p>
                   </div>
-                  {/* Arrow */}
+                  {/* Arrow: down on mobile, right on desktop */}
                   {i < 3 && (
-                    <div className="mx-2 md:mx-3 text-gray-600 rotate-90 md:rotate-0 flex-shrink-0">
-                      <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5">
+                    <div className="my-1 md:my-0 md:mx-3 flex-shrink-0">
+                      {/* Mobile: down arrow */}
+                      <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5 block md:hidden">
+                        <path d="M10 5v10M6 11l4 4 4-4" stroke="#4a5a8a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      {/* Desktop: right arrow */}
+                      <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5 hidden md:block">
                         <path d="M5 10h10M11 6l4 4-4 4" stroke="#4a5a8a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </div>

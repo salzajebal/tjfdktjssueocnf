@@ -34,7 +34,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex flex-col sm:flex-row gap-8 md:gap-16">
+          <div className="hidden md:flex flex-col sm:flex-row gap-8 md:gap-16">
             <div>
               <h4 className="text-xs font-bold text-gray-300 mb-3 tracking-widest uppercase">서비스</h4>
               <ul className="space-y-2 text-xs text-gray-400">
