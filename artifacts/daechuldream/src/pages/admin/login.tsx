@@ -66,7 +66,7 @@ export function AdminLogin() {
             <Lock className="h-6 w-6 text-primary" />
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight text-primary">관리자 로그인</CardTitle>
-          <CardDescription>대출드림 관리자 시스템에 접속합니다</CardDescription>
+          <CardDescription>프라임브릿지 관리자 시스템에 접속합니다</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

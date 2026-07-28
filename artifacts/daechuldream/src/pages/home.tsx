@@ -275,67 +275,62 @@ export function Home() {
 
       <main className="flex-1">
         {/* ── Hero ── */}
-        <section className="overflow-hidden" style={{ background: "#f3f3fb" }}>
-          <div className="max-w-5xl mx-auto px-4 md:px-6">
-            <div className="flex flex-col md:flex-row items-center gap-0 md:gap-10">
+        <section className="relative overflow-hidden" style={{ background: "#f3f3fb", minHeight: 480 }}>
 
-              {/* Left: text */}
-              <div className="flex-1 py-12 md:py-20 text-left">
-                <div
-                  className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border mb-5"
-                  style={{ borderColor: PURPLE, color: PURPLE, background: "#eeebff" }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: PURPLE }} />
-                  사업자 금융 컨설팅 서비스
-                </div>
-                <h1
-                  className="text-[26px] md:text-[38px] font-bold leading-snug text-gray-900 mb-4"
-                  style={{ fontWeight: 800 }}
-                >
-                  사업자 자금,<br />어디서부터 시작해야<br />할지 고민되시나요?
-                </h1>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-8" style={{ fontWeight: 500 }}>
-                  사업 현황을 검토해 상담 가능한 금융 방향을 안내해드립니다.
-                </p>
-                <button
-                  onClick={() => { scrollToForm(); }}
-                  className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-white text-sm font-bold hover:opacity-90 transition-opacity shadow-md mb-8"
-                  style={{ background: PURPLE }}
-                >
-                  무료 상담 신청하기 <span className="text-lg">›</span>
-                </button>
-                <div className="flex items-center gap-8">
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
-                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5 6.5-7" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </div>
-                    <span className="text-xs text-gray-600 font-semibold">100% 비대면 상담</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
-                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none"><path d="M8 2a4 4 0 100 8A4 4 0 008 2zM2 14c0-2.21 2.686-4 6-4s6 1.79 6 4" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                    </div>
-                    <span className="text-xs text-gray-600 font-semibold">사업자 맞춤 검토</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
-                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none"><path d="M8 1v7l4 2" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </div>
-                    <span className="text-xs text-gray-600 font-semibold">1:1 맞춤 상담</span>
-                  </div>
-                </div>
+          {/* Right: full-height image (desktop only) */}
+          <div className="absolute inset-y-0 right-0 hidden md:block" style={{ width: "45%" }}>
+            <img
+              src="/hero-business.jpg"
+              alt="사업자 금융 컨설팅"
+              className="w-full h-full object-cover object-center"
+            />
+            {/* Left-edge gradient fade into section bg */}
+            <div
+              className="absolute inset-y-0 left-0 w-40 pointer-events-none"
+              style={{ background: "linear-gradient(to right, #f3f3fb, transparent)" }}
+            />
+          </div>
+
+          {/* Left: text content */}
+          <div className="relative max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
+            <div className="md:w-[52%] text-left">
+              <div
+                className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium border mb-5"
+                style={{ borderColor: PURPLE, color: PURPLE, background: "#eeebff" }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: PURPLE }} />
+                사업자 금융 컨설팅 서비스
               </div>
-
-              {/* Right: image */}
-              <div className="w-full md:w-[420px] flex-shrink-0 self-end hidden md:block">
-                <img
-                  src="/hero-business.jpg"
-                  alt="사업자 금융 컨설팅"
-                  className="w-full h-[420px] object-cover object-top rounded-t-2xl"
-                  style={{ display: "block" }}
-                />
+              <h1
+                className="text-[28px] md:text-[40px] font-bold leading-snug text-gray-900 mb-4"
+                style={{ fontWeight: 800 }}
+              >
+                사업자 자금,<br />어디서부터 시작해야<br />할지 고민되시나요?
+              </h1>
+              <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-8" style={{ fontWeight: 500 }}>
+                사업 현황을 검토해 상담 가능한 금융 방향을 안내해드립니다.
+              </p>
+              <button
+                onClick={() => { scrollToForm(); }}
+                className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-white text-sm font-bold hover:opacity-90 transition-opacity shadow-md mb-10"
+                style={{ background: PURPLE }}
+              >
+                무료 상담 신청하기 <span className="text-lg">›</span>
+              </button>
+              <div className="flex flex-wrap items-center gap-5">
+                {[
+                  { icon: <path d="M3 8.5l3.5 3.5 6.5-7" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>, label: "100% 비대면 상담" },
+                  { icon: <path d="M8 2a4 4 0 100 8A4 4 0 008 2zM2 14c0-2.21 2.686-4 6-4s6 1.79 6 4" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round"/>, label: "사업자 맞춤 검토" },
+                  { icon: <path d="M8 1v7l4 2" stroke={PURPLE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>, label: "1:1 맞춤 상담" },
+                ].map(({ icon, label }) => (
+                  <div key={label} className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#eeebff" }}>
+                      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="none">{icon}</svg>
+                    </div>
+                    <span className="text-xs text-gray-600 font-semibold">{label}</span>
+                  </div>
+                ))}
               </div>
-
             </div>
           </div>
         </section>
@@ -781,29 +776,80 @@ export function Home() {
         </section>
 
         {/* ── 진행 절차 ── */}
-        <section className="py-10 md:py-14 bg-[#1c1c1e]">
+        <section className="py-10 md:py-14 bg-[#1a2240]">
           <div className="max-w-5xl mx-auto px-4 md:px-6">
-            <p className="text-xs font-bold mb-1 tracking-widest" style={{ color: PURPLE }}>PROCESS</p>
-            <h2 className="text-2xl font-bold text-white mb-8" style={{ fontWeight: 800 }}>진행 절차</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <p className="text-xs font-bold mb-1 tracking-widest text-center" style={{ color: "#7B8FD4" }}>PROCESS</p>
+            <h2 className="text-2xl font-bold text-white mb-10 text-center" style={{ fontWeight: 800 }}>진행 절차</h2>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0">
               {[
-                { step: "①", label: "상담 신청서 제출" },
-                { step: "②", label: "사업 현황 검토" },
-                { step: "③", label: "상담 가능한 금융상품 검토" },
-                { step: "④", label: "전문 상담 진행" },
+                {
+                  num: "01",
+                  label: "상담 신청",
+                  desc: "간단한 정보를\n입력해 주세요.",
+                  icon: (
+                    <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
+                      <rect x="8" y="6" width="20" height="26" rx="2" stroke="white" strokeWidth="1.8"/>
+                      <path d="M12 13h12M12 18h12M12 23h7" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+                      <path d="M25 27l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ),
+                },
+                {
+                  num: "02",
+                  label: "사업 현황 확인",
+                  desc: "입력하신 내용을 바탕으로\n현황을 확인합니다.",
+                  icon: (
+                    <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
+                      <circle cx="20" cy="16" r="7" stroke="white" strokeWidth="1.8"/>
+                      <path d="M8 34c0-5.523 5.373-10 12-10s12 4.477 12 10" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+                    </svg>
+                  ),
+                },
+                {
+                  num: "03",
+                  label: "내부 검토",
+                  desc: "상담 가능한 금융 방향을\n내부에서 검토합니다.",
+                  icon: (
+                    <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
+                      <circle cx="18" cy="18" r="9" stroke="white" strokeWidth="1.8"/>
+                      <path d="M25 25l7 7" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+                      <path d="M14 18h8M18 14v8" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+                    </svg>
+                  ),
+                },
+                {
+                  num: "04",
+                  label: "상담 방향 안내",
+                  desc: "검토된 내용을 바탕으로\n안내 및 상담을 진행합니다.",
+                  icon: (
+                    <svg viewBox="0 0 40 40" fill="none" className="w-9 h-9">
+                      <path d="M7 10h26a2 2 0 012 2v14a2 2 0 01-2 2H13l-6 5V12a2 2 0 012-2z" stroke="white" strokeWidth="1.8" strokeLinejoin="round"/>
+                      <path d="M13 18h14M13 23h8" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+                    </svg>
+                  ),
+                },
               ].map((item, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl p-5 flex flex-col gap-3"
-                  style={{ background: "#2a2a2c" }}
-                >
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-base font-bold flex-shrink-0"
-                    style={{ background: PURPLE, color: "#fff" }}
-                  >
-                    {item.step}
+                <div key={i} className="flex flex-row md:flex-row items-center">
+                  {/* Card */}
+                  <div className="flex flex-col items-center text-center w-44">
+                    <div
+                      className="w-16 h-16 rounded-full flex items-center justify-center mb-3 flex-shrink-0"
+                      style={{ background: "#2a3a6e" }}
+                    >
+                      {item.icon}
+                    </div>
+                    <p className="text-[10px] font-bold tracking-widest mb-1" style={{ color: "#7B8FD4" }}>{item.num}</p>
+                    <p className="text-sm font-bold text-white mb-1.5">{item.label}</p>
+                    <p className="text-xs leading-relaxed whitespace-pre-line" style={{ color: "#8a9cc0" }}>{item.desc}</p>
                   </div>
-                  <p className="text-sm text-gray-200 leading-snug" style={{ fontWeight: 600 }}>{item.label}</p>
+                  {/* Arrow */}
+                  {i < 3 && (
+                    <div className="mx-2 md:mx-3 text-gray-600 rotate-90 md:rotate-0 flex-shrink-0">
+                      <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5">
+                        <path d="M5 10h10M11 6l4 4-4 4" stroke="#4a5a8a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
