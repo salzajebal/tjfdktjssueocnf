@@ -13,7 +13,7 @@ function StepIndicator({ step }: { step: number }) {
     { n: 4, label: "결과" },
   ];
   return (
-    <div className="flex items-start justify-between px-4 py-3 border-b border-gray-100">
+    <div className="flex items-start justify-between px-2 pt-3 pb-1">
       {steps.map((s, i) => (
         <div key={s.n} className="flex items-start flex-1">
           <div className="flex flex-col items-center flex-1">
@@ -22,7 +22,7 @@ function StepIndicator({ step }: { step: number }) {
               style={
                 step >= s.n
                   ? { background: PURPLE, color: "#fff" }
-                  : { background: "#e5e7eb", color: "#9ca3af" }
+                  : { background: "#d1d5db", color: "#9ca3af" }
               }
             >
               {s.n}
@@ -33,7 +33,7 @@ function StepIndicator({ step }: { step: number }) {
           </div>
           {i < steps.length - 1 && (
             <div className="flex-1 flex items-start pt-3.5">
-              <div className="w-full h-px" style={{ background: step > s.n ? PURPLE : "#e5e7eb" }} />
+              <div className="w-full h-px" style={{ background: step > s.n ? PURPLE : "#d1d5db" }} />
             </div>
           )}
         </div>
@@ -121,7 +121,6 @@ export function Home() {
                 <div className="py-3 text-center text-white text-sm font-bold" style={{ background: PURPLE }}>
                   무료 한도조회
                 </div>
-                <StepIndicator step={step} />
 
                 <div className="p-5">
                   {step === 1 && (
@@ -272,6 +271,11 @@ export function Home() {
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* Step indicator — separate slide below the card */}
+              <div className="bg-white rounded-lg shadow-sm mt-3 px-3 py-1">
+                <StepIndicator step={step} />
               </div>
             </div>
           </div>
