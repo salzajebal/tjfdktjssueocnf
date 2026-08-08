@@ -4,12 +4,17 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+Workflows (managed by Replit):
+- **Start application** — `PORT=23711 BASE_PATH=/ pnpm --filter @workspace/daechuldream run dev` (frontend, port 23711)
+- **API Server** — `PORT=8080 pnpm --filter @workspace/api-server run dev` (API, port 8080)
+
+One-off commands:
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `pnpm --filter @workspace/db run push` — push DB schema changes to dev database
+
+Environment: `DATABASE_URL` is runtime-managed by Replit (no manual setup needed). `SESSION_SECRET` is set as a Replit Secret.
 
 ## Stack
 
