@@ -24,12 +24,12 @@ args = "DB Backup Cron"
 name = "DB Backup Cron"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "pnpm --filter @workspace/scripts run backup:cron"
-
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "BACKUP_URL=http://localhost:8080 pnpm --filter @workspace/scripts run backup:cron"
 
 [agent]
 stack = "PNPM_WORKSPACE"
