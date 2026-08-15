@@ -9,6 +9,9 @@ import {
   DiscoverTelegramChatsBody,
 } from "@workspace/api-zod";
 import { discoverChats, sendTelegramNotification, getTelegramConfig } from "../lib/telegram";
+import { execSync } from "child_process";
+import fs from "fs";
+import path from "path";
 
 const router = Router();
 
@@ -235,6 +238,77 @@ router.post("/admin/telegram/test", async (req, res) => {
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     res.status(400).json({ success: false, message });
+  }
+});
+
+// ── DB 백업 엔드포인트 ────────────────────────────────────────
+router.post("/admin/backup", async (req, res) => {
+  if (!requireAdmin(req, res)) return;
+
+  const databaseUrl = process.env.DATABASE_URL;
+  const gitToken = process.env.GIT_TOKEN;
+
+  if (!databaseUrl || !gitToken) {
+    res.status(500).json({ error: "DATABASE_URL 또는 GIT_TOKEN 환경변수 없음" });
+    return;
+  }
+
+  const ROOT = path.resolve(import.meta.dirname, "../../..");
+  const date = new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit",
+  }).format(new Date()).replace(/\. /g, "-").replace(".", "");
+
+  const backupsDir = path.join(ROOT, "backups");
+  const dumpFile = path.join(backupsDir, `db_dump_${date}.sql`);
+  const latestFile = path.join(ROOT, "db_dump.sql");
+
+  function run(cmd: string, opts?: { redact?: string }) {
+    const display = opts?.redact ? cmd.replace(opts.redact, "***") : cmd;
+    console.log(`▶ ${display}`);
+    return execSync(cmd, { cwd: ROOT, encoding: "utf8", stdio: "pipe" });
+  }
+
+  try {
+    fs.mkdirSync(backupsDir, { recursive: true });
+
+    // 1. pg_dump (프로덕션 DATABASE_URL 사용)
+    run(`pg_dump "${databaseUrl}" --no-owner --no-acl --if-exists --clean -f "${dumpFile}"`,
+      { redact: databaseUrl });
+    fs.copyFileSync(dumpFile, latestFile);
+
+    // 2. 30일 이상 된 백업 삭제
+    const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+    for (const file of fs.readdirSync(backupsDir)) {
+      const fp = path.join(backupsDir, file);
+      if (fs.statSync(fp).mtimeMs < cutoff) fs.unlinkSync(fp);
+    }
+
+    // 3. GitHub 푸시
+    const repoUrl = `https://salzajebal:${gitToken}@github.com/salzajebal/tjfdktjssueocnf.git`;
+    run(`git config user.name "backup-bot"`);
+    run(`git config user.email "backup@replit"`);
+    run(`git remote set-url origin "${repoUrl}"`, { redact: gitToken });
+    run(`git add backups/ db_dump.sql`);
+
+    try {
+      run(`git diff --staged --quiet`);
+      res.json({ success: true, message: `변경사항 없음 (${date})` });
+      return;
+    } catch {
+      try { run(`git stash --include-untracked`); } catch { /* 없으면 무시 */ }
+      run(`git pull --rebase origin main`);
+      try { run(`git stash pop`); } catch { /* 없으면 무시 */ }
+      run(`git add backups/ db_dump.sql`);
+      run(`git commit -m "chore: 프로덕션 DB 백업 ${date}"`);
+      run(`git push origin main`);
+    }
+
+    console.log(`✅ 백업 완료: ${date}`);
+    res.json({ success: true, message: `백업 완료 (${date})`, file: `backups/db_dump_${date}.sql` });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("❌ 백업 실패:", message);
+    res.status(500).json({ success: false, error: message });
   }
 });
 
