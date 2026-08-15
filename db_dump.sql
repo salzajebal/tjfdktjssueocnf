@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict gMjlAhktJc069w7J3ta6nOJOms7qmoOpnxgNUeTrOc5aQYBt0abujfjiR6YIwTC
+\restrict ghnNnYCeDU2cOUJO5z0lWzAsnKqWvAQOrUeNDw8tlJsKSG0UXGd1jyeUkVHxP4b
 
 -- Dumped from database version 16.10
 -- Dumped by pg_dump version 16.10
@@ -252,5 +252,5 @@ ALTER TABLE ONLY public.telegram_settings
 -- PostgreSQL database dump complete
 --
 
-\unrestrict gMjlAhktJc069w7J3ta6nOJOms7qmoOpnxgNUeTrOc5aQYBt0abujfjiR6YIwTC
+\unrestrict ghnNnYCeDU2cOUJO5z0lWzAsnKqWvAQOrUeNDw8tlJsKSG0UXGd1jyeUkVHxP4b
 
