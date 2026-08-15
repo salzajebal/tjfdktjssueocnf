@@ -9,7 +9,8 @@ import fs from "fs";
 import path from "path";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
-const DEPLOYED_URL = "https://prime874.com";
+// 배포 전 테스트 시: BACKUP_URL=http://localhost:8080 pnpm backup
+const DEPLOYED_URL = process.env.BACKUP_URL ?? "https://prime874.com";
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN ?? "daechuldream-admin-token-2024";
 const GIT_TOKEN = process.env.GIT_TOKEN;
 
