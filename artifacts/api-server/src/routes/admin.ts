@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { db, applicationsTable, telegramSettingsTable } from "@workspace/db";
+import { db, applicationsTable, telegramSettingsTable, siteSettingsTable } from "@workspace/db";
 import { eq, desc, count, sql, and, gte } from "drizzle-orm";
 import {
   AdminLoginBody,
@@ -9,9 +9,6 @@ import {
   DiscoverTelegramChatsBody,
 } from "@workspace/api-zod";
 import { discoverChats, sendTelegramNotification, getTelegramConfig } from "../lib/telegram";
-import { execSync } from "child_process";
-import fs from "fs";
-import path from "path";
 
 const router = Router();
 
@@ -242,72 +239,79 @@ router.post("/admin/telegram/test", async (req, res) => {
 });
 
 // ── DB 백업 엔드포인트 ────────────────────────────────────────
-router.post("/admin/backup", async (req, res) => {
+// 프로덕션 DB의 모든 데이터를 SQL INSERT 형식으로 반환합니다.
+// git 푸시는 백업 cron(개발 환경)이 담당합니다.
+router.get("/admin/backup/dump", async (req, res) => {
   if (!requireAdmin(req, res)) return;
 
-  const databaseUrl = process.env.DATABASE_URL;
-  const gitToken = process.env.GIT_TOKEN;
-
-  if (!databaseUrl || !gitToken) {
-    res.status(500).json({ error: "DATABASE_URL 또는 GIT_TOKEN 환경변수 없음" });
-    return;
-  }
-
-  const ROOT = path.resolve(import.meta.dirname, "../../..");
-  const date = new Intl.DateTimeFormat("ko-KR", {
-    timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit",
-  }).format(new Date()).replace(/\. /g, "-").replace(".", "");
-
-  const backupsDir = path.join(ROOT, "backups");
-  const dumpFile = path.join(backupsDir, `db_dump_${date}.sql`);
-  const latestFile = path.join(ROOT, "db_dump.sql");
-
-  function run(cmd: string, opts?: { redact?: string }) {
-    const display = opts?.redact ? cmd.replace(opts.redact, "***") : cmd;
-    console.log(`▶ ${display}`);
-    return execSync(cmd, { cwd: ROOT, encoding: "utf8", stdio: "pipe" });
-  }
-
   try {
-    fs.mkdirSync(backupsDir, { recursive: true });
+    const [applications, siteSettings, telegramSettings] = await Promise.all([
+      db.select().from(applicationsTable).orderBy(applicationsTable.id),
+      db.select().from(siteSettingsTable),
+      db.select().from(telegramSettingsTable),
+    ]);
 
-    // 1. pg_dump (프로덕션 DATABASE_URL 사용)
-    run(`pg_dump "${databaseUrl}" --no-owner --no-acl --if-exists --clean -f "${dumpFile}"`,
-      { redact: databaseUrl });
-    fs.copyFileSync(dumpFile, latestFile);
+    const esc = (v: unknown): string => {
+      if (v === null || v === undefined) return "NULL";
+      if (v instanceof Date) return `'${v.toISOString()}'`;
+      if (typeof v === "boolean") return v ? "TRUE" : "FALSE";
+      if (typeof v === "number") return String(v);
+      return `'${String(v).replace(/'/g, "''")}'`;
+    };
 
-    // 2. 30일 이상 된 백업 삭제
-    const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
-    for (const file of fs.readdirSync(backupsDir)) {
-      const fp = path.join(backupsDir, file);
-      if (fs.statSync(fp).mtimeMs < cutoff) fs.unlinkSync(fp);
+    const lines: string[] = [
+      "-- ============================================================",
+      `-- 프라임브릿지 프로덕션 DB 덤프`,
+      `-- 생성: ${new Date().toISOString()}`,
+      "-- ============================================================",
+      "",
+      "-- ── applications ──────────────────────────────────────────",
+      "TRUNCATE TABLE applications RESTART IDENTITY CASCADE;",
+    ];
+
+    for (const row of applications) {
+      lines.push(
+        `INSERT INTO applications (id, name, phone, job_type, loan_amount, loan_purpose, residence_type, annual_income, credit_score, message, status, created_at) VALUES (${[
+          row.id, row.name, row.phone, row.job_type, row.loan_amount,
+          row.loan_purpose, row.residence_type, row.annual_income,
+          row.credit_score, row.message, row.status, row.created_at,
+        ].map(esc).join(", ")});`
+      );
     }
 
-    // 3. GitHub 푸시
-    const repoUrl = `https://salzajebal:${gitToken}@github.com/salzajebal/tjfdktjssueocnf.git`;
-    run(`git config user.name "backup-bot"`);
-    run(`git config user.email "backup@replit"`);
-    run(`git remote set-url origin "${repoUrl}"`, { redact: gitToken });
-    run(`git add backups/ db_dump.sql`);
-
-    try {
-      run(`git diff --staged --quiet`);
-      res.json({ success: true, message: `변경사항 없음 (${date})` });
-      return;
-    } catch {
-      try { run(`git stash --include-untracked`); } catch { /* 없으면 무시 */ }
-      run(`git pull --rebase origin main`);
-      try { run(`git stash pop`); } catch { /* 없으면 무시 */ }
-      run(`git add backups/ db_dump.sql`);
-      run(`git commit -m "chore: 프로덕션 DB 백업 ${date}"`);
-      run(`git push origin main`);
+    if (applications.length > 0) {
+      const maxId = Math.max(...applications.map(a => a.id));
+      lines.push(`SELECT setval('applications_id_seq', ${maxId});`);
     }
 
-    console.log(`✅ 백업 완료: ${date}`);
-    res.json({ success: true, message: `백업 완료 (${date})`, file: `backups/db_dump_${date}.sql` });
+    lines.push("", "-- ── site_settings ─────────────────────────────────────────");
+    lines.push("TRUNCATE TABLE site_settings RESTART IDENTITY CASCADE;");
+    for (const row of siteSettings) {
+      lines.push(
+        `INSERT INTO site_settings (id, kakao_link, updated_at) VALUES (${[
+          row.id, row.kakao_link, row.updated_at,
+        ].map(esc).join(", ")});`
+      );
+    }
+
+    lines.push("", "-- ── telegram_settings ──────────────────────────────────────");
+    lines.push("TRUNCATE TABLE telegram_settings RESTART IDENTITY CASCADE;");
+    for (const row of telegramSettings) {
+      lines.push(
+        `INSERT INTO telegram_settings (id, enabled, bot_token, chat_id, chat_name, updated_at) VALUES (${[
+          row.id, row.enabled, row.bot_token, row.chat_id, row.chat_name, row.updated_at,
+        ].map(esc).join(", ")});`
+      );
+    }
+
+    lines.push("");
+    const sql = lines.join("\n");
+
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.send(sql);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("❌ 백업 실패:", message);
+    console.error("❌ 덤프 생성 실패:", message);
     res.status(500).json({ success: false, error: message });
   }
 });
