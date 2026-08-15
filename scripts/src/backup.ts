@@ -91,8 +91,11 @@ export async function backupDb() {
   console.log("✅ 백업 완료\n");
 }
 
-// 직접 실행 시
-backupDb().catch((err) => {
-  console.error("❌ 백업 실패:", err.message);
-  process.exit(1);
-});
+// 직접 실행 시 (import 시에는 실행 안 됨)
+const isMain = process.argv[1]?.endsWith("backup.ts") || process.argv[1]?.endsWith("backup.js");
+if (isMain) {
+  backupDb().catch((err) => {
+    console.error("❌ 백업 실패:", err.message);
+    process.exit(1);
+  });
+}
