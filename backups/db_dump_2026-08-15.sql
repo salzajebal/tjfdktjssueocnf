@@ -1,6 +1,6 @@
 -- ============================================================
 -- 프라임브릿지 프로덕션 DB 덤프
--- 생성: 2026-08-15T09:54:18.432Z
+-- 생성: 2026-08-15T10:03:33.917Z
 -- ============================================================
 
 -- ── applications ──────────────────────────────────────────
@@ -14,7 +14,8 @@ INSERT INTO applications (id, name, phone, job_type, loan_amount, loan_purpose, 
 INSERT INTO applications (id, name, phone, job_type, loan_amount, loan_purpose, residence_type, annual_income, credit_score, message, status, created_at) VALUES (9, '김소희', '01097837047', '개인사업자', '1천~3천만원', '운영자금', '인천광역시', NULL, '현재연체:예, 1년이내:예', '{"성별":"여성","연령대":"50대","사업기간":"2~3년","업종":"제조업","업태":"천막","2024년매출":"","월평균매출":"","기존대출건수":"없음","기존대출총잔액":"","대출종류":"","현재연체":"예","1년이내연체":"예","자금용도기타":""}', 'pending', '2026-07-31T01:50:31.434Z');
 INSERT INTO applications (id, name, phone, job_type, loan_amount, loan_purpose, residence_type, annual_income, credit_score, message, status, created_at) VALUES (10, '이동찬', '01062282791', '개인사업자', '1천~3천만원', '운영자금', '인천광역시', '1억8천5백', '현재연체:아니오, 1년이내:아니오', '{"성별":"남성","연령대":"60대 이상","사업기간":"3년 이상","업종":"건설업","업태":"건설 ,철강재설치,판넬","2024년매출":"2억5천7백","월평균매출":"2,000만원","기존대출건수":"4건 이상","기존대출총잔액":"1억원 이상","대출종류":"사업자대출, 담보대출, 현금서비스, 개인신용대출","현재연체":"아니오","1년이내연체":"아니오","자금용도기타":""}', 'pending', '2026-07-31T05:10:41.259Z');
 INSERT INTO applications (id, name, phone, job_type, loan_amount, loan_purpose, residence_type, annual_income, credit_score, message, status, created_at) VALUES (11, '손성율', '01030520025', '개인사업자', '1천~3천만원', '운영자금', '부산광역시', NULL, '현재연체:아니오, 1년이내:아니오', '{"성별":"남성","연령대":"60대 이상","사업기간":"6개월~1년","업종":"건설업","업태":"철거","2024년매출":"","월평균매출":"","기존대출건수":"","기존대출총잔액":"1,000~3,000만원","대출종류":"사업자대출","현재연체":"아니오","1년이내연체":"아니오","자금용도기타":""}', 'pending', '2026-08-03T07:31:28.135Z');
-SELECT setval('applications_id_seq', 11);
+INSERT INTO applications (id, name, phone, job_type, loan_amount, loan_purpose, residence_type, annual_income, credit_score, message, status, created_at) VALUES (12, '김준', '01076218331', '개인사업자', '1억~3억원', '운영자금, 차량 구입 (사업용), 세금 납부, 임대료 및 고정비', '경기도', '', '현재연체:아니오, 1년이내:아니오', '{"성별":"남성","연령대":"50대","사업기간":"3년 이상","업종":"운수업","업태":"운송,짐나르기,배송.포장","2024년매출":"4천500백만원","월평균매출":"400백만원","기존대출건수":"4건 이상","기존대출총잔액":"3,000~5,000만원","대출종류":"사업자대출","현재연체":"아니오","1년이내연체":"아니오","자금용도기타":""}', 'pending', '2026-08-10T23:36:17.622Z');
+SELECT setval('applications_id_seq', 12);
 
 -- ── site_settings ─────────────────────────────────────────
 TRUNCATE TABLE site_settings RESTART IDENTITY CASCADE;
